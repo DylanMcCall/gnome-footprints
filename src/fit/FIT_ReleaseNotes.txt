@@ -1,0 +1,46 @@
+FIT SDK External Release Notes
+
+7.10
+-Profile Changes
+
+7.01
+-Fixed truncation issue with some scaled fields in Java/C++
+-Removed record.cadence reference to cadence256 
+
+7.00
+-Added missing monitoring fields described in File Types Doc
+-Other profile changes
+-Accumulated fields improvements (Java): 
+   Multiple compression fields can now accumulate into the same destination field
+   Explicitly logging the accumulated field updates the accumulated value
+-Fixed FitGen crash if custom types/mesgs files are locked
+-Add FIT ProtocolVersion compatability check to C# decoder
+
+6.20
+-Profile Changes
+-Fixed discrepancy between binary and ascii in example activity file
+
+
+6.10
+-Profile Changes
+-Fix Encoding of ProtocolVersion under C#
+-Rearranged Java mesg templates to avoid 64k static size boundary
+-Fixed issue where software and slave_device messages were incorrectly merged
+
+
+6.00
+-Documentation Update
+-Profile Changes
+
+5.20
+-Expose Java getByValue method
+-Revise CSV tool message filtering interface
+
+5.10
+-Profile Changes
+-Increase default value for FIT_LOCAL_MESGS (affects C demo apps)
+
+5.00
+-Added C# SDK (Library + Examples)
+-Profile Changes
+-Fixed issue where Profile enum elements starting with a digit wouldn't generate correctly

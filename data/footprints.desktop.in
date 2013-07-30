@@ -1,0 +1,10 @@
+[Desktop Entry]
+_Name=GPS Data Manager
+_Comment=Import, share and explore your GPS tracks
+_Keywords=gps;gpx;tcx;fit;tracks;traces;sports;fitness;running;garmin;forerunner;
+Exec=footprints %U
+Terminal=false
+Type=Application
+Icon=footprints
+Categories=GNOME;GTK;Utility;Maps;Sports;
+MimeType=x-content/gps-garmin;

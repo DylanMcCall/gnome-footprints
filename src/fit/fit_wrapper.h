@@ -1,0 +1,1 @@
+void * fit_wrapper_create_convert_state();

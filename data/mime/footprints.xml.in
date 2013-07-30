@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+	<mime-type type="x-content/gps-garmin">
+		<_comment>Garmin GPS device</_comment>
+		<treemagic>
+			<treematch type="directory" path="garmin" non-empty="true" match-case="false">
+				<treematch type="file" path="garmin/GarminDevice.xml" match-case="false" mimetype="application/xml"/>
+			</treematch>
+		</treemagic>
+	</mime-type>
+</mime-info>

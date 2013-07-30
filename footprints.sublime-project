@@ -1,0 +1,24 @@
+{
+	"folders":
+	[
+		{
+			"path": "src",
+			"file_exclude_patterns": ["*.c", "*.h", "*.la", "*.lo", "*.stamp", "Makefile", "Makefile.in"]
+		},
+		{
+			"path": "libfit",
+			"file_exclude_patterns": ["*.la", "*.lo", "*.stamp", "Makefile", "Makefile.in"]
+		},
+		{
+			"path": "external"
+		},
+		{
+			"path": "data",
+			"file_exclude_patterns": ["*.c", "*.h", "*.la", "*.lo", "*.stamp", "Makefile", "Makefile.in"]
+		},
+		{
+			"path": "po",
+			"file_exclude_patterns": ["*.c", "*.h", "*.la", "*.lo", "*.stamp", "Makefile", "Makefile.in"]
+		}
+	]
+}

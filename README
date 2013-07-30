@@ -1,0 +1,9 @@
+Footprints GPS Track Manager
+Copyright(c) 2013 Dylan McCall and Footprints contributors.
+
+-----
+
+This project is licensed under the GNU GPL license version 3 or later, except for the following files, which are included strictly for convenience. Please do not distribute changes to these files without first consulting their respective license agreements:
+
+lib/fitsdk_c
+FIT SDK license
