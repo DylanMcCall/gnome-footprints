@@ -7,7 +7,7 @@ fit_example_VALASOURCES = \
 	FitExample.vala
 
 fit_example_SOURCES = \
-	$(fit_example_VALASOURCES)
+	$(fit_example_VALASOURCES) \
 	sdk/fit.c \
 	sdk/fit_convert.c \
 	sdk/fit_crc.c \
