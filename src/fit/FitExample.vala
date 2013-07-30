@@ -1,5 +1,4 @@
 public void do_conversion(string file_name) {
-	//void * convert_state = Fit.create_convert_state();
 	Fit.Convert.State convert_state = Fit.Convert.State();
 	Fit.Convert.init(ref convert_state, true);
 
@@ -42,7 +41,9 @@ public void do_conversion(string file_name) {
 
 						case Fit.Message.Number.DEVICE_INFO:
 							var device_info = (Fit.Message.DeviceInfo *)message_data;
-							stdout.printf("Device Info: software=%u, hardware=%u, serial=%u\n",
+							stdout.printf("Device Info: manufacturer=%s, product=%u, software=%u, hardware=%u, serial=%u\n",
+								device_info.manufacturer.to_string(),
+								device_info.product,
 								device_info.software_version,
 								device_info.hardware_version,
 								device_info.serial_number

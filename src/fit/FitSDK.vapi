@@ -24,7 +24,9 @@ namespace Fit {
 		}
 
 		[CCode (cname = "FIT_CONVERT_STATE")]
-		public struct State {} // This struct's contents are uninteresting
+		public struct State {
+			// Private
+		}
 
 		[CCode (cname = "FitConvert_Init")]
 		public void init(ref Fit.Convert.State state, bool read_file_header);
@@ -44,134 +46,360 @@ namespace Fit {
 
 	[CCode (cname="int", cprefix = "FIT_FILE_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum File {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		DEVICE = 1,
+		SETTINGS = 2,
+		SPORT = 3,
+		ACTIVITY = 4,
+		WORKOUT = 5,
+		COURSE = 6,
+		SCHEDULES = 7,
+		WEIGHT = 9,
+		TOTALS = 10,
+		GOALS = 11,
+		BLOOD_PRESSURE = 14,
+		MONITORING = 15,
+		ACTIVITY_SUMMARY = 20,
+		MONITORING_DAILY = 28
 	}
 
 	[CCode (cname="int", cprefix = "FIT_DISPLAY_MEASURE_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum DisplayMeasure {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		METRIC,
+		STATUTE
 	}
 
 	[CCode (cname="int", cprefix = "FIT_DISPLAY_HEART_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum DisplayHeart {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		BPM,
+		MAX,
+		RESERVE
 	}
 
 	[CCode (cname="int", cprefix = "FIT_DISPLAY_POWER_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum DisplayPower {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		WATTS,
+		PERCENT_FTP
 	}
 
 	[CCode (cname="int", cprefix = "FIT_SPORT_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum Sport {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		GENERIC,
+		RUNNING,
+		CYCLING,
+		TRANSITION,
+		FITNESS_EQUIPMENT,
+		SWIMMING,
+		BASKETBALL,
+		SOCCER,
+		TENNIS,
+		AMERICAN_FOOTBALL,
+		TRAINING,
+		ALL = 254
 	}
 
 	[CCode (cname="int", cprefix = "FIT_SUB_SPORT_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum SubSport {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		GENERIC,
+		TREADMILL,
+		STREET,
+		TRAIL,
+		TRACK,
+		SPIN,
+		INDOOR_CYCLING,
+		ROAD,
+		MOUNTAIN,
+		DOWNHILL,
+		RECUMBENT,
+		CYCLOCROSS,
+		HAND_CYCLING,
+		TRACK_CYCLING,
+		INDOOR_ROWING,
+		ELLIPTICAL,
+		STAIR_CLIMBING,
+		LAP_SWIMMING,
+		OPEN_WATER,
+		FLEXIBILITY_TRAINING,
+		STRENGTH_TRAINING,
+		ALL = 254
 	}
 
 	[CCode (cname="int", cprefix = "FIT_ACTIVITY_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum Activity {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		MANUAL,
+		AUTO_MULTI_SPORT
 	}
 
 	[CCode (cname="int", cprefix = "FIT_INTENSITY_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum Intensity {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		ACTIVE,
+		REST,
+		WARMUP,
+		COOLDOWN
 	}
 
 	[CCode (cname="int", cprefix = "FIT_SESSION_TRIGGER_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum SessionTrigger {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		ACTIVITY_END,
+		MANUAL,
+		AUTO_MULTI_SPORT,
+		FITNESS_EQUIPMENT
 	}
 
 	[CCode (cname="int", cprefix = "FIT_AUTOLAP_TRIGGER_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum AutolapTrigger {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		TIME,
+		DISTANCE,
+		POSITION_START,
+		POSITION_LAP,
+		POSITION_WAYPOINT,
+		POSITION_MARKED,
+		OFF
 	}
 
 	[CCode (cname="int", cprefix = "FIT_LAP_TRIGGER_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum LapTrigger {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		MANUAL,
+		TIME,
+		DISTANCE,
+		POSITION_START,
+		POSITION_LAP,
+		POSITION_WAYPOINT,
+		POSITION_MARKED,
+		SESSION_END,
+		FITNESS_EQUIPMENT
 	}
 
 	[CCode (cname="int", cprefix = "FIT_EVENT_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum Event {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		TIMER = 0,
+		WORKOUT = 3,
+		WORKOUT_STEP = 4,
+		POWER_DOWN = 5,
+		POWER_UP = 6,
+		OFF_COURSE = 7,
+		SESSION = 8,
+		LAP = 9,
+		COURSE_POINT = 10,
+		BATTERY = 11,
+		VIRTUAL_PARTNER_PACE = 12,
+		HR_HIGH_ALERT = 13,
+		HR_LOW_ALERT = 14,
+		SPEED_HIGH_ALERT = 15,
+		SPEED_LOW_ALERT = 16,
+		CAD_HIGH_ALERT = 17,
+		CAD_LOW_ALERT = 18,
+		POWER_HIGH_ALERT = 19,
+		POWER_LOW_ALERT = 20,
+		RECOVERY_HR = 21,
+		BATTERY_LOW = 22,
+		TIME_DURATION_ALERT = 23,
+		DISTANCE_DURATION_ALERT = 24,
+		CALORIE_DURATION_ALERT = 25,
+		ACTIVITY = 26,
+		FITNESS_EQUIPMENT = 27,
+		LENGTH = 28,
+		CALIBRATION = 36
 	}
 
 	[CCode (cname="int", cprefix = "FIT_EVENT_TYPE_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum EventType {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		START,
+		STOP,
+		CONSECUTIVE_DEPRECIATED,
+		MARKER,
+		STOP_ALL,
+		BEGIN_DEPRECIATED,
+		END_DEPRECIATED,
+		END_ALL_DEPRECIATED,
+		STOP_DISABLE,
+		STOP_DISABLE_ALL
 	}
 
 	[CCode (cname="int", cprefix = "FIT_TIMER_TRIGGER_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum TimerTrigger {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		MANUAL,
+		AUTO,
+		FITNESS_EQUIPMENT
 	}
 
 	[CCode (cname="int", cprefix = "FIT_FITNESS_EQUIPMENT_STATE_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum FitnessEquipmentState {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		READY,
+		IN_USE,
+		PAUSED,
+		UNKNOWN
 	}
 
 	[CCode (cname="int", cprefix = "FIT_MANUFACTURER_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum Manufacturer {
-		INVALID = null
-		// TODO
-	}
-
-	[CCode (cname="int", cprefix = "FIT_GARMIN_PRODUCT_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
-	public enum GarminProduct {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		GARMIN = 1,
+		GARMIN_FR405_ANTFS = 2,
+		ZEPHYR = 3,
+		DAYTON = 4,
+		IDT = 5,
+		SRM = 6,
+		QUARQ = 7,
+		IBIKE = 8,
+		SARIS = 9,
+		SPARK_HK = 10,
+		TANITA = 11,
+		ECHOWELL = 12,
+		DYNASTREAM_OEM = 13,
+		NAUTILUS = 14,
+		DYNASTREAM = 15,
+		TIMEX = 16,
+		METRIGEAR = 17,
+		XELIC = 18,
+		BEURER = 19,
+		CARDIOSPORT = 20,
+		A_AND_D = 21,
+		HMM = 22,
+		SUUNTO = 23,
+		THITA_ELEKTRONIK = 24,
+		GPULSE = 25,
+		CLEAN_MOBILE = 26,
+		PEDAL_BRAIN = 27,
+		PEAKSWARE = 28,
+		SAXONAR = 29,
+		LEMOND_FITNESS = 30,
+		DEXCOM = 31,
+		WAHOO_FITNESS = 32,
+		OCTANE_FITNESS = 33,
+		ARCHINOETICS = 34,
+		THE_HURT_BOX = 35,
+		CITIZEN_SYSTEMS = 36,
+		MAGELLAN = 37,
+		OSYNCE = 38,
+		HOLUX = 39,
+		CONCEPT2 = 40,
+		ONE_GIANT_LEAP = 42,
+		ACE_SENSOR = 43,
+		BRIM_BROTHERS = 44,
+		XPLOVA = 45,
+		PERCEPTION_DIGITAL = 46,
+		BF1SYSTEMS = 47,
+		PIONEER = 48,
+		SPANTEC = 49,
+		METALOGICS = 50,
+		4IIIIS = 51,
+		SEIKO_EPSON = 52,
+		SEIKO_EPSON_OEM = 53,
+		IFOR_POWELL = 54,
+		MAXWELL_GUIDER = 55,
+		STAR_TRAC = 56,
+		BREAKAWAY = 57,
+		ALATECH_TECHNOLOGY_LTD = 58,
+		MIO_TECHNOLOGY_EUROPE = 59,
+		ROTOR = 60,
+		GEONAUTE = 61,
+		ID_BIKE = 62,
+		SPECIALIZED = 63,
+		WTEK = 64,
+		PHYSICAL_ENTERPRISES = 65,
+		NORTH_POLE_ENGINEERING = 66,
+		BKOOL = 67,
+		CATEYE = 68,
+		STAGES_CYCLING = 69,
+		SIGMASPORT = 70,
+		DEVELOPMENT = 255,
+		ACTIGRAPHCORP = 5759
 	}
 
 	[CCode (cname="int", cprefix = "FIT_DEVICE_TYPE_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum DeviceType {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		ANTFS = 1,
+		BIKE_POWER = 11,
+		ENVIRONMENT_SENSOR_LEGACY = 12,
+		MULTI_SPORT_SPEED_DISTANCE = 15,
+		CONTROL = 16,
+		FITNESS_EQUIPMENT = 17,
+		BLOOD_PRESSURE = 18,
+		GEOCACHE_NODE = 19,
+		LIGHT_ELECTRIC_VEHICLE = 20,
+		ENV_SENSOR = 25,
+		WEIGHT_SCALE = 119,
+		HEART_RATE = 120,
+		BIKE_SPEED_CADENCE = 121,
+		BIKE_CADENCE = 122,
+		BIKE_SPEED = 123,
+		STRIDE_SPEED_DISTANCE = 124
 	}
 
 	[CCode (cname="int", cprefix = "FIT_BATTERY_STATUS_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum BatteryStatus {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		NEW = 1,
+		GOOD = 2,
+		OK = 3,
+		LOW = 4,
+		CRITICAL = 5
 	}
 
 	[CCode (cname="int", cprefix = "FIT_SWIM_STROKE_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum SwimStroke {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		FREESTYLE,
+		BACKSTROKE,
+		BREASTSTROKE,
+		BUTTERFLY,
+		DRILL,
+		MIXED,
+		IM
 	}
 
 	[CCode (cname="int", cprefix = "FIT_ACTIVITY_TYPE_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum ActivityType {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		GENERIC = 0,
+		RUNNING = 1,
+		CYCLING = 2,
+		TRANSITION = 3,
+		FITNESS_EQUIPMENT = 4,
+		SWIMMING = 5,
+		WALKING = 6,
+		ALL = 254
 	}
 
 	[CCode (cname="int", cprefix = "FIT_ACTIVITY_SUBTYPE_", cheader_filename = "sdk/fit_example.h", has_type_id = false)]
 	public enum ActivitySubtype {
-		INVALID = null
-		// TODO
+		INVALID = null,
+		GENERIC = 0,
+		TREADMILL = 1,
+		STREET = 2,
+		TRAIL = 3,
+		TRACK = 4,
+		SPIN = 5,
+		INDOOR_CYCLING = 6,
+		ROAD = 7,
+		MOUNTAIN = 8,
+		DOWNHILL = 9,
+		RECUMBENT = 10,
+		CYCLOCROSS = 11,
+		HAND_CYCLING = 12,
+		TRACK_CYCLING = 13,
+		INDOOR_ROWING = 14,
+		ELLIPTICAL = 15,
+		STAIR_CLIMBING = 16,
+		LAP_SWIMMING = 17,
+		OPEN_WATER = 18,
+		ALL = 254
 	}
 
 	[CCode (cheader_filename = "sdk/fit_example.h")]
