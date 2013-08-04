@@ -49,8 +49,8 @@ AC_CONFIG_FILES([Makefile
 	libgd/Makefile
 	data/Makefile
 	data/mime/Makefile
+	fit/Makefile
 	src/Makefile
-	src/fit/Makefile
 	po/Makefile.in])
 
 AC_OUTPUT

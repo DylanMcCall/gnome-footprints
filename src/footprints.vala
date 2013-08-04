@@ -120,11 +120,6 @@ public class Database : Object {
 	}
 }
 
-public class Activity : Object {
-	public string id {public get; private set;}
-	public Device origin;
-}
-
 public class MainWindow : Gtk.ApplicationWindow {
 	private SimpleAction import_device_action;
 	private SimpleAction import_file_action;
@@ -206,7 +201,24 @@ public class MainWindow : Gtk.ApplicationWindow {
 	}
 
 	private void on_import_file_cb(Variant? value) {
-		stdout.printf("Import from file\n");
+		var file_chooser = new Gtk.FileChooserDialog(
+			_("Choose a GPS track file"),
+			this,
+			Gtk.FileChooserAction.OPEN,
+			Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL,
+			Gtk.Stock.OPEN, Gtk.ResponseType.ACCEPT
+		);
+		file_chooser.select_multiple = true;
+		var result = file_chooser.run();
+		if (result == Gtk.ResponseType.ACCEPT) {
+			// TODO: Run the correct importer for this file
+			var files = file_chooser.get_files();
+			foreach (File file in files) {
+				var importer = new FITImporter();
+				importer.import_file(file);
+			}
+		}
+		file_chooser.destroy();
 	}
 
 	private void set_map_type(string map_type) {

@@ -1,7 +1,8 @@
 AM_CPPFLAGS = $(BASE_CFLAGS) \
 	-include $(CONFIG_HEADER) \
-	-I $(top_builddir)/libgd
+	-I $(top_builddir)/libgd \
+	-I $(top_builddir)/fit
 
-BASE_VALAFLAGS = \
+BASE_VALAFLAGS = -g \
 	--pkg glib-2.0 \
 	--target-glib=2.36.0

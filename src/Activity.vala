@@ -16,13 +16,18 @@
  */
 
 public class Activity : Object {
+	public uint64 id {public get; public set;}
+	public Device origin {public get; public set;}
 	private List<TrackPoint> points;
 
 	public Activity() {
 		this.points = new List<TrackPoint>();
 	}
 
-	public void append_point(TrackPoint point);
+	public void append_point(TrackPoint point) {
+		// TODO: Record an error if this point has a timestamp smaller than the previous
+		this.points.append(point);
+	}
 }
 
 public class TrackPoint {

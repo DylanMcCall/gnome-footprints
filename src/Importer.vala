@@ -15,10 +15,15 @@
  * along with Footprints.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class FITImporter : Importer {
-	public override Activity? import_file(File file) {
-		// TODO: Run fit2tcx. It isn't beautiful, but it works.
-		// TODO: Create an Activity with the result, store in database
-		// TODO: Update this to use the FIT SDK internally. It'll be tidier :)
-	}
+public errordomain ImportError {
+	INVALID_DATA
+}
+
+/**
+ * An Importer takes some file and, on success, produces an Activity object
+ * with data stored locally in a supported format such as GPX.
+ */
+public abstract class Importer : Object {
+	public abstract int64 get_file_activity_id(File file);
+	public abstract Activity? import_file(File file) throws ImportError;
 }

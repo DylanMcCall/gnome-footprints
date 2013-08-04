@@ -1,6 +1,7 @@
 SUBDIRS = \
 	data \
 	libgd \
+	fit \
 	src \
 	po
 
