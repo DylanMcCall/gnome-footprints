@@ -24,7 +24,7 @@ public class GarminDevice : Device {
 
 		this.device_info = new DeviceInfo(device_info_file);
 
-		stdout.printf("Found %s device with ID %s\n",
+		stdout.printf("Found '%s' device with ID '%s'\n",
 			this.device_info.model.description,
 			this.device_info.device_id);
 
@@ -71,7 +71,7 @@ private class DeviceInfo : Object {
 		Xml.Doc* info_xmldoc = Xml.Parser.parse_file(path);
 
 		if (info_xmldoc == null) {
-			throw new DeviceError.UNEXPECTED_CONTENT("Missing or invalid file %s", path);
+			throw new DeviceError.UNEXPECTED_CONTENT("Missing or invalid file '%s'", path);
 		}
 
 		// Get the root node. notice the dereferencing operator -> instead of .
@@ -79,7 +79,7 @@ private class DeviceInfo : Object {
 
 		if (root == null) {
 			delete info_xmldoc;
-			throw new DeviceError.MALFORMED_DATA("%s is empty");
+			throw new DeviceError.MALFORMED_DATA("The file ('%s') does not contain a root node", path);
 		} else {
 			this.parse_node(root);
 		}
@@ -87,7 +87,7 @@ private class DeviceInfo : Object {
 		delete info_xmldoc;
 
 		if (this.device_id == null || this.model == null) {
-			throw new DeviceError.MALFORMED_DATA("Device info file is incomplete", path);
+			throw new DeviceError.MALFORMED_DATA("Device info file ('%s') is incomplete", path);
 		}
 	}
 

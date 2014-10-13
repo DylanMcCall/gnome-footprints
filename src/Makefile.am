@@ -22,13 +22,11 @@ footprints_VALAFLAGS = $(BASE_VALAFLAGS) \
 	--pkg clutter-gtk-1.0 \
 	--pkg champlain-0.12 \
 	--pkg champlain-gtk-0.12 \
-	--pkg libxml-2.0 \
-	$(top_builddir)/libgd/gd-1.0.vapi
+	--pkg libxml-2.0
 
 footprints_CPPFLAGS = $(AM_CPPFLAGS)
 
 footprints_LDADD = $(BASE_LIBS) \
-	$(top_builddir)/libgd/libgd.la \
 	$(top_builddir)/fit/libfitsdk.la
 
 junk_files = \
@@ -40,4 +38,3 @@ dist-hook:
 
 CLEANFILES = \
 	$(junk_files)
-

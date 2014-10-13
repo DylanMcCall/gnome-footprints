@@ -1,11 +1,10 @@
 SUBDIRS = \
 	data \
-	libgd \
 	fit \
 	src \
 	po
 
-ACLOCAL_AMFLAGS = -I m4 -I libgd
+ACLOCAL_AMFLAGS = -I m4
 
 INTLTOOL_FILES = intltool-extract.in \
                  intltool-merge.in \

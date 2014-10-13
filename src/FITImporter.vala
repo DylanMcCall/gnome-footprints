@@ -36,6 +36,11 @@ class ActivityFITParser : FITParser, Object {
 		this.activity = activity;
 	}
 
+	const double SEMICIRCLES_FACTOR = 180.0 / 2147483648; // 180 / 2^31
+	private static double semicircles_to_degrees(int32 semicircles) {
+		return semicircles * SEMICIRCLES_FACTOR;
+	}
+
 	protected void found_file_id(Fit.Message.FileID * file_id) {
 		stdout.printf("File ID: type=%u, number=%u\n",
 			file_id.type,
@@ -89,9 +94,18 @@ class ActivityFITParser : FITParser, Object {
 	}
 
 	protected void found_record(Fit.Message.Record * record) {
-		stdout.printf("Record: timestamp=%u\n",
-			record.timestamp
+		stdout.printf("Record: timestamp=%u, latitude=%f, longitude=%f\n",
+			record.timestamp,
+			semicircles_to_degrees(record.position_lat),
+			semicircles_to_degrees(record.position_long)
 		);
+
+		var point = new TrackPoint();
+		point.timestamp = record.timestamp;
+		point.latitude = semicircles_to_degrees(record.position_lat);
+		point.longitude = semicircles_to_degrees(record.position_long);
+		point.elevation = record.altitude;
+		this.activity.append_point(point);
 	}
 
 	protected void found_event(Fit.Message.Event * event) {

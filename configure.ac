@@ -26,7 +26,7 @@ AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
 GLIB_REQUIRED=2.32.0
-GTK_REQUIRED=3.4.0
+GTK_REQUIRED=3.12.0
 
 PKG_CHECK_MODULES([BASE], [
 	clutter-1.0 >= 1.14.4
@@ -43,10 +43,7 @@ PKG_CHECK_MODULES([BASE], [
 	libxml-2.0 >= 2.9.0
 ])
 
-LIBGD_INIT([header-bar stack revealer vapi])
-
 AC_CONFIG_FILES([Makefile
-	libgd/Makefile
 	data/Makefile
 	data/mime/Makefile
 	fit/Makefile

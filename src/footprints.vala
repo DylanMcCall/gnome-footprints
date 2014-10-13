@@ -126,28 +126,25 @@ public class MainWindow : Gtk.ApplicationWindow {
 	private SimpleAction map_type_action;
 	private SimpleAction recent_tracks_action;
 
+	private FootprintsHeader header;
 	private Champlain.View map_view;
 
 	public MainWindow(Application app) {
 		Object(application: app);
 
-		this.populate_actions();
-
 		this.set_size_request(900,650);
+
+		this.header = new FootprintsHeader();
+		this.set_titlebar(this.header);
 		this.set_title(_("GPS Tracks"));
-		this.hide_titlebar_when_maximized = true;
 
 		var wrapper = new Gtk.Grid();
 		this.add(wrapper);
 		wrapper.set_orientation(Gtk.Orientation.VERTICAL);
 
-		var header = new Header();
-		wrapper.add(header);
-		header.set_hexpand(true);
-
-		var stack = new Gd.Stack();
+		var stack = new Gtk.Stack();
 		wrapper.add(stack);
-		header.set_stack(stack);
+		this.header.set_stack(stack);
 
 		var activities_wrapper = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
 		stack.add_titled(activities_wrapper, "activities", _("Activities"));
@@ -175,6 +172,8 @@ public class MainWindow : Gtk.ApplicationWindow {
 
 		var reports_wrapper = new Gtk.Grid();
 		stack.add_titled(reports_wrapper, "reports", _("Reports"));
+
+		this.populate_actions();
 	}
 
 	private void populate_actions() {
@@ -205,8 +204,8 @@ public class MainWindow : Gtk.ApplicationWindow {
 			_("Choose a GPS track file"),
 			this,
 			Gtk.FileChooserAction.OPEN,
-			Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL,
-			Gtk.Stock.OPEN, Gtk.ResponseType.ACCEPT
+			_("Cancel"), Gtk.ResponseType.CANCEL,
+			_("Open"), Gtk.ResponseType.ACCEPT
 		);
 		file_chooser.select_multiple = true;
 		var result = file_chooser.run();
@@ -215,7 +214,8 @@ public class MainWindow : Gtk.ApplicationWindow {
 			var files = file_chooser.get_files();
 			foreach (File file in files) {
 				var importer = new FITImporter();
-				importer.import_file(file);
+				Activity activity = importer.import_file(file);
+				this.map_view.add_layer(activity.as_path_layer());
 			}
 		}
 		file_chooser.destroy();
@@ -226,19 +226,23 @@ public class MainWindow : Gtk.ApplicationWindow {
 		
 		var map_source_factory = Champlain.MapSourceFactory.dup_default();
 		string previous_source_id = this.map_view.get_map_source().get_id();
-		string source_id;
+		string? source_id;
 		switch (map_type) {
 		case "street":
-			source_id = Champlain.MAP_SOURCE_OSM_MAPQUEST;
+			source_id = Champlain.MAP_SOURCE_OSM_MAPNIK;
 			break;
 		case "trails":
 			source_id = Champlain.MAP_SOURCE_OSM_CYCLE_MAP;
 			break;
+		case "transit":
+			source_id = Champlain.MAP_SOURCE_OSM_TRANSPORT_MAP;
+			break;
 		default:
-			source_id = Champlain.MAP_SOURCE_OSM_MAPNIK;
+			stderr.printf("Error: unknown map type %s\n", map_type);
+			source_id = null;
 			break;
 		}
-		if (source_id != previous_source_id) {
+		if (source_id != null && source_id != previous_source_id) {
 			var map_source = map_source_factory.create_cached_source(source_id);
 			this.map_view.set_map_source(map_source);
 		}
@@ -261,14 +265,15 @@ public class MainWindow : Gtk.ApplicationWindow {
 	}
 }
 
-// TODO: Port this to GtkHeaderBar, asap!
-public class Header : Gd.HeaderBar {
+public class FootprintsHeader : Gtk.HeaderBar {
 	private Gtk.MenuButton import_menubutton;
-	private Gd.StackSwitcher stack_switcher;
+	private Gtk.StackSwitcher stack_switcher;
 	private Gtk.MenuButton options_menubutton;
 
-	public Header() {
+	public FootprintsHeader() {
 		Object();
+
+		this.set_show_close_button(true);
 
 		this.import_menubutton = new Gtk.MenuButton();
 		this.pack_start(this.import_menubutton);
@@ -277,7 +282,7 @@ public class Header : Gd.HeaderBar {
 		this.import_menubutton.set_label(_("Add"));
 		this.import_menubutton.set_always_show_image(true);
 
-		this.stack_switcher = new Gd.StackSwitcher();
+		this.stack_switcher = new Gtk.StackSwitcher();
 		this.set_custom_title(this.stack_switcher);
 
 		this.options_menubutton = new Gtk.MenuButton();
@@ -294,7 +299,7 @@ public class Header : Gd.HeaderBar {
 		this.options_menubutton.set_menu_model(options_menu);
 	}
 
-	public void set_stack(Gd.Stack stack) {
+	public void set_stack(Gtk.Stack stack) {
 		this.stack_switcher.set_stack(stack);
 	}
 
@@ -317,6 +322,7 @@ public class Header : Gd.HeaderBar {
 		var map_type_section = new Menu();
 		map_type_section.append(_("Street Map"), "win.map::street");
 		map_type_section.append(_("Trail Map"), "win.map::trails");
+		// map_type_section.append(_("Transit Map"), "win.map::transit");
 		// map_type_section.append(_("Satellite Map"), "win.map::satellite");
 		options_menu.append_section(null, map_type_section);
 

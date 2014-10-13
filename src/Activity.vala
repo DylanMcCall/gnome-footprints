@@ -18,15 +18,24 @@
 public class Activity : Object {
 	public uint64 id {public get; public set;}
 	public Device origin {public get; public set;}
-	private List<TrackPoint> points;
+	private SList<TrackPoint> points;
 
 	public Activity() {
-		this.points = new List<TrackPoint>();
+		this.points = new SList<TrackPoint>();
 	}
 
 	public void append_point(TrackPoint point) {
 		// TODO: Record an error if this point has a timestamp smaller than the previous
 		this.points.append(point);
+	}
+
+	public Champlain.PathLayer as_path_layer() {
+		var path_layer = new Champlain.PathLayer();
+		foreach (TrackPoint point in this.points) {
+			var map_coordinate = new Champlain.Coordinate.full(point.latitude, point.longitude);
+			path_layer.add_node(map_coordinate);
+		}
+		return path_layer;
 	}
 }
 
